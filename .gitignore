@@ -1,6 +1,8 @@
 # Dependências
-node_modules/
+node_modules
 jspm_packages/
+package-lock.json
+package.json
 
 # Arquivos de build e distribuição
 dist/

@@ -5,6 +5,7 @@
     "moduleResolution": "Bundler",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["node"],
+    "allowJs": true,
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
@@ -15,5 +16,5 @@
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
-  "include": ["js", "scripts", "tests"]
+  "include": ["src"]
 }

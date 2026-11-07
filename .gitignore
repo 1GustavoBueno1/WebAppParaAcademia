@@ -1,49 +1,38 @@
 # Dependências
-node_modules
-jspm_packages/
-package-lock.json
-package.json
+node_modules/
 
-# Arquivos de build e distribuição
+# Build
 dist/
-build/
-out/
-
-# Logs e arquivos de diagnóstico
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-.pnpm-debug.log*
+*.tsbuildinfo
 
 # Variáveis de ambiente e segredos
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-firebase-config.ts
+.env.*
+!.env.example
 
-# Cobertura de testes
-coverage/
-.nyc_output/
+# Chaves do Firebase Admin / service account (NUNCA commitar)
+*service-account*.json
+*-firebase-adminsdk-*.json
+serviceAccountKey.json
 
-# Cache de ferramentas
-.cache/
-.parcel-cache/
-.next/
-.nuxt/
-.vuepress/dist/
-.eslintcache
-.stylelintcache
+# Firebase CLI e emulador
+.firebase/
+firebase-debug.log*
+firebase-debug.*.log
+ui-debug.log
+firestore-debug.log
+*.log
+
+# Logs e cache de gerenciadores
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
 .vite/
 
-# Arquivos de sistema e editores
+# Editor e sistema
+.vscode/*
+!.vscode/extensions.json
+.idea/
 .DS_Store
 Thumbs.db
-.vscode/
-.idea/
-*.swp
-*.swo

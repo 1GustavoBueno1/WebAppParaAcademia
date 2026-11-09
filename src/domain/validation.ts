@@ -1,19 +1,25 @@
 import type { Plan } from "./types.ts"
 
 const LIMIT_REPMAX = 100
-const LIMIT_REPMIN = 0
+const LIMIT_REPMIN = 1
 
-const TARGET_RIRMAX = 5
+const TARGET_RIRMAX = 10
 const TARGET_RIRMIN = 0
 
 const TARGET_SETSMIN = 0
 const TARGET_SETSMAX = 20
 
-const LIMIT_NOTES = 200
+
+export const MIN_LOAD_KG = 0;
+export const MAX_LOAD_KG = 1000;
+
 
 export const MAX_NOTE_LENGTH = 500;
 export const MAX_ID_LENGTH = 64;
 export const MAX_NAME_LENGTH = 100;
+
+export const MAX_WORKOUT_EXERCISES = 30;
+export const MAX_SECONDS = 600;
 
 const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
 
@@ -102,4 +108,24 @@ export function isValidDate(value: unknown): value is string {
         dt.getUTCMonth() === mo - 1 &&
         dt.getUTCDate() === d
     )
+}
+
+function validateSet (set: unknown, path: string, unit: 'reps' | 'seconds'): string | null {
+    if (!isRecord(set)) return `${path} deve ser um objeto`
+
+    const maxReps = unit === 'seconds' ? MAX_SECONDS : LIMIT_REPMAX
+    const {reps, loadKg, rir} = set
+    const repsLabel = unit === 'seconds' ? 'segundos' : 'reps'
+
+    if (!Number.isInteger(reps) || (reps as number) < LIMIT_REPMIN || (reps as number) > maxReps) {
+        return `${path}.reps (${repsLabel}) deve ser inteiro entre ${LIMIT_REPMIN} e ${maxReps}`
+    }
+    if (
+        typeof loadKg !== 'number' ||
+        !Number.isFinite(loadKg) ||
+        loadKg < MAX_LOAD_KG ||
+        loadKg > MIN_LOAD_KG
+    ) {
+        return `${path}.loadKg deve ser número entre ${MIN_LOAD_KG} e ${MAX_LOAD_KG}`;
+    }
 }

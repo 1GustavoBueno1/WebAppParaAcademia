@@ -11,53 +11,58 @@ const TARGET_SETSMAX = 20
 
 const LIMIT_NOTES = 200
 
+export const MAX_NOTE_LENGTH = 500;
+export const MAX_ID_LENGTH = 64;
+export const MAX_NAME_LENGTH = 100;
+
 const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
 
+function isNonEmptyString(v: unknown, max: number): v is string {
+    return v !== undefined && typeof v === 'string' && v.trim().length > 0 && v.length <= max 
+}
+function isRecord(v: unknown): v is Record<string, unknown> {
+  return typeof v === 'object' && v !== null && !Array.isArray(v);
+}
 
 export function validatePlan(plan: unknown): string[] {
     if (typeof plan !== 'object' || plan === null) {
         return ["plano invalido"]
     }
     const typedPlan = plan as Plan;
-    if (!Array.isArray(typedPlan.days) || typeof typedPlan.name !== "string" || typedPlan.name.trim().length === 0) {
+    if (!Array.isArray(typedPlan.days) || isNonEmptyString(typedPlan.days, MAX_NAME_LENGTH)) {
         return ["Erro ao importar plano"]
     }
-    if (typedPlan.days.length === 0) {
-        return ["O plano precisa ter pelo menos um dia"]}
     const dayIds = new Set<string>()
     for (const day of typedPlan.days) {
         if (typeof day !== 'object' || day === null) {
         return ["plano invalido"]
     }
-        if (typeof day.id !== "string" || day.id.trim().length <= 0 ||!Array.isArray(day.exercises)) {
+        if (isNonEmptyString(day.id, MAX_ID_LENGTH)||!Array.isArray(day.exercises)) {
             return ["plano invalido"]
         }
         if (dayIds.has(day.id)) {
             return [`Dia repetido: "${day.id}"`]
         }
         dayIds.add(day.id);
-        if (typeof day.name !== 'string' ||  day.name.trim().length <= 0) {
+        if (isNonEmptyString(day.name, MAX_NAME_LENGTH)) {
             return ["Plano invalido"]
-        }
-        if (day.exercises.length === 0) {
-            return [`O dia "${day.id}" não tem exercícios`]
         }
         const exerciseIds = new Set<string>();
             for (const ex of day.exercises) {
             if (typeof ex !== 'object' || ex === null) {
             return ["Exercício invalido"]
         }
-            if (typeof ex.exerciseId !== "string" || ex.exerciseId.trim().length <= 0 ) {
+            if (isNonEmptyString(ex.exerciseId, MAX_ID_LENGTH)) {
                 return ["Id de plano invalido"]
             }
             if (exerciseIds.has(ex.exerciseId)) {
                 return [`Exercício repetido no dia "${day.id}": "${ex.exerciseId}"`]
             }
             exerciseIds.add(ex.exerciseId);
-            if (typeof ex.name !== 'string' ||  ex.name.trim().length <= 0) {
+            if (isNonEmptyString(ex.name, MAX_NAME_LENGTH)) {
                 return ["nome invalido"]
             }
-            if (ex.notes !== undefined && (typeof ex.notes !== 'string' || ex.notes.length > LIMIT_NOTES)) {
+            if (isNonEmptyString(ex.notes, MAX_NOTE_LENGTH)) {
                 return ["Notas invalidas"]
             }
             if ( ex.unit !== undefined && ex.unit !== 'reps' && ex.unit !== "seconds") {
@@ -83,10 +88,6 @@ export function validatePlan(plan: unknown): string[] {
     }
     return []
 }
-function isRecord(v: unknown): v is Record<string, unknown> {
-  return typeof v === 'object' && v !== null && !Array.isArray(v);
-}
-
 
 export function isValidDate(value: unknown): value is string {
     if (typeof value !== "string") return false

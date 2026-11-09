@@ -128,4 +128,12 @@ function validateSet (set: unknown, path: string, unit: 'reps' | 'seconds'): str
     ) {
         return `${path}.loadKg deve ser número entre ${MIN_LOAD_KG} e ${MAX_LOAD_KG}`;
     }
+    if (rir !== undefined) {
+        if (!Number.isInteger(rir) || (rir as number) < TARGET_RIRMIN || (rir as number) > TARGET_RIRMAX) {
+            return `${path}.rir deve ser inteiro entre ${TARGET_RIRMIN} e ${TARGET_RIRMAX}`
+        }
+    }
+    return null
 }
+
+

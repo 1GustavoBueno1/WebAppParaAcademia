@@ -11,6 +11,9 @@ const TARGET_SETSMAX = 20
 
 const LIMIT_NOTES = 200
 
+const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
+
+
 export function validatePlan(plan: unknown): string[] {
     if (typeof plan !== 'object' || plan === null) {
         return ["plano invalido"]
@@ -79,4 +82,23 @@ export function validatePlan(plan: unknown): string[] {
         }
     }
     return []
+}
+function isRecord(v: unknown): v is Record<string, unknown> {
+  return typeof v === 'object' && v !== null && !Array.isArray(v);
+}
+
+
+export function isValidDate(value: unknown): value is string {
+    if (typeof value !== "string") return false
+    const m = DATE_RE.exec(value)
+    if (!m) return false
+    const y = Number(m[1])
+    const mo = Number(m[2])
+    const d = Number(m[3])
+    const dt = new Date(Date.UTC(y, mo - 1, d))
+    return (
+        dt.getUTCFullYear() === y &&
+        dt.getUTCMonth() === mo - 1 &&
+        dt.getUTCDate() === d
+    )
 }

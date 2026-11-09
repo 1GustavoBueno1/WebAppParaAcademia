@@ -135,5 +135,38 @@ function validateSet (set: unknown, path: string, unit: 'reps' | 'seconds'): str
     }
     return null
 }
+export function validateWorkout(workout: unknown): string[] {
+    if (!isRecord(workout)) {
+        return ["Workout deve ser um objeto"]
+    }
+    if (!isValidDate(workout.date)) {
+        return ["Erro no modelo da data"]
+    }
+    if (workout.note !== undefined) {
+        if (!isNonEmptyString(workout.note, MAX_NOTE_LENGTH )) return ["Erro ao escrever nota"]
+    }
+    const exercises = workout.exercises;
+    if (exercises !== undefined) {
+        if (!Array.isArray(exercises)) return ["Exercicios deve vir como array"]
+        if (exercises.length < 1) return ["deve haver mais de 1 exercicio"]
+    
+    const seen = new Set<string>()
+    for (let i = 0; i < exercises.length; i++){
+        const ex: unknown = exercises[i]
+
+        if (!isRecord(ex)) return ["Exercicio deve ser um objeto"]
+        if (!isNonEmptyString(ex.exerciseId, MAX_ID_LENGTH)) return ["Erro no nome do exercicio"]
+        if (seen.has(ex.exerciseId)) return [`${ex.exerciseId} esta repetitido`]
+        seen.add(ex.exerciseId)
+        if (ex.name !== undefined) {
+            if (!isNonEmptyString(ex.name, MAX_NAME_LENGTH)) {"erro no nome"} 
+        }
+        if (ex.set !== undefined && ex.set !== 'seconds' && ex.set !== 'reps') return ["set invalido"]
+        const unit: 'seconds' | 'reps' = ex.unit === 'seconds' ? 'seconds' : 'reps'    
+    }
+    }
+    }
+
+
 
 

@@ -123,8 +123,8 @@ function validateSet (set: unknown, path: string, unit: 'reps' | 'seconds'): str
     if (
         typeof loadKg !== 'number' ||
         !Number.isFinite(loadKg) ||
-        loadKg < MAX_LOAD_KG ||
-        loadKg > MIN_LOAD_KG
+        loadKg > MAX_LOAD_KG ||
+        loadKg < MIN_LOAD_KG
     ) {
         return `${path}.loadKg deve ser número entre ${MIN_LOAD_KG} e ${MAX_LOAD_KG}`;
     }
@@ -148,21 +148,20 @@ export function validateWorkout(workout: unknown): string[] {
     const exercises = workout.exercises;
     if (exercises !== undefined) {
         if (!Array.isArray(exercises)) return ["Exercicios deve vir como array"]
-        if (exercises.length < 1) return ["deve haver mais de 1 exercicio"]
-    
+        if (exercises.length < 1) return ["deve haver ao menos 1 exercicio"]
+    if (!isNonEmptyString(workout.planDayId, MAX_ID_LENGTH)) return ["Plan id invalido"]    
     const seen = new Set<string>()
     for (let i = 0; i < exercises.length; i++){
         const ex: unknown = exercises[i]
-
         if (!isRecord(ex)) return ["Exercicio deve ser um objeto"]
         if (!isNonEmptyString(ex.exerciseId, MAX_ID_LENGTH)) return ["Erro no nome do exercicio"]
         if (seen.has(ex.exerciseId)) return [`${ex.exerciseId} esta repetitido`]
         seen.add(ex.exerciseId)
         if (ex.name !== undefined) {
-            if (!isNonEmptyString(ex.name, MAX_NAME_LENGTH)) {"erro no nome"} 
+            if (!isNonEmptyString(ex.name, MAX_NAME_LENGTH)) return ["Erro no nome"] 
         }   
         const sets = ex.sets
-        if (sets !== undefined && sets !== 'seconds' && sets !== 'reps') return ["set invalido"]
+        if (ex.unit !== undefined && ex.unit !== 'seconds' && ex.unit !== 'reps') return ["set invalido"]
         const unit: 'seconds' | 'reps' = ex.unit === 
         'seconds' ? 'seconds' : 'reps'    
         if (!Array.isArray(sets)) return ["Sest deve ser uma lista"]

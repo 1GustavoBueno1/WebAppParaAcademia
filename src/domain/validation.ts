@@ -160,11 +160,21 @@ export function validateWorkout(workout: unknown): string[] {
         seen.add(ex.exerciseId)
         if (ex.name !== undefined) {
             if (!isNonEmptyString(ex.name, MAX_NAME_LENGTH)) {"erro no nome"} 
+        }   
+        const sets = ex.sets
+        if (sets !== undefined && sets !== 'seconds' && sets !== 'reps') return ["set invalido"]
+        const unit: 'seconds' | 'reps' = ex.unit === 
+        'seconds' ? 'seconds' : 'reps'    
+        if (!Array.isArray(sets)) return ["Sest deve ser uma lista"]
+        if (sets.length < 1 || sets.length > TARGET_SETSMAX) return ["tamanho de set invalido"]
+    
+        for (let j = 0; j < sets.length; j ++) {
+            const err = validateSet(sets[j], `${sets[j]}`, unit)
+            if (err) return [err]
         }
-        if (ex.set !== undefined && ex.set !== 'seconds' && ex.set !== 'reps') return ["set invalido"]
-        const unit: 'seconds' | 'reps' = ex.unit === 'seconds' ? 'seconds' : 'reps'    
     }
     }
+    return []
     }
 
 

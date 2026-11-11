@@ -1,4 +1,4 @@
-import type { Plan } from "./types.ts"
+import type { Metric, Plan } from "./types.ts"
 
 const LIMIT_REPMAX = 100
 const LIMIT_REPMIN = 1
@@ -37,6 +37,7 @@ export function validatePlan(plan: unknown): string[] {
     if (!Array.isArray(typedPlan.days) || isNonEmptyString(typedPlan.days, MAX_NAME_LENGTH)) {
         return ["Erro ao importar plano"]
     }
+    if (!isNonEmptyString(typedPlan.name, MAX_NAME_LENGTH)) return ["nome invalido"]
     const dayIds = new Set<string>()
     for (const day of typedPlan.days) {
         if (typeof day !== 'object' || day === null) {
@@ -173,7 +174,15 @@ export function validateWorkout(workout: unknown): string[] {
     }
     return []
 }
+export function validateMetric(metric: unknown) {
+    const typeMetric = metric as Metric
+   if (metric !== 'object' || metric === null) return ["erro na metric"]
+   if (!isValidDate(typeMetric.date)) return ["Formato de data invalido"]
+   if (typeMetric.waistCm !== undefined) {
+        if (typeof typeMetric.waistCm !== 'number') return ["waistCm precisa ser um numero"]
+        if (typeof typeMetric.weightKg !== 'number') return ["WeightKg precisa ser um numero"]
+               
+   }
 
 
-
-
+}

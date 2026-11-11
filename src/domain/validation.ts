@@ -18,7 +18,6 @@ export const MAX_NOTE_LENGTH = 500;
 export const MAX_ID_LENGTH = 64;
 export const MAX_NAME_LENGTH = 100;
 
-export const MAX_WORKOUT_EXERCISES = 30;
 export const MAX_SECONDS = 600;
 
 const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
@@ -43,14 +42,14 @@ export function validatePlan(plan: unknown): string[] {
         if (typeof day !== 'object' || day === null) {
         return ["plano invalido"]
     }
-        if (isNonEmptyString(day.id, MAX_ID_LENGTH)||!Array.isArray(day.exercises)) {
+        if (!isNonEmptyString(day.id, MAX_ID_LENGTH)||!Array.isArray(day.exercises)) {
             return ["plano invalido"]
         }
         if (dayIds.has(day.id)) {
             return [`Dia repetido: "${day.id}"`]
         }
         dayIds.add(day.id);
-        if (isNonEmptyString(day.name, MAX_NAME_LENGTH)) {
+        if (!isNonEmptyString(day.name, MAX_NAME_LENGTH)) {
             return ["Plano invalido"]
         }
         const exerciseIds = new Set<string>();
@@ -58,17 +57,17 @@ export function validatePlan(plan: unknown): string[] {
             if (typeof ex !== 'object' || ex === null) {
             return ["Exercício invalido"]
         }
-            if (isNonEmptyString(ex.exerciseId, MAX_ID_LENGTH)) {
+            if (!isNonEmptyString(ex.exerciseId, MAX_ID_LENGTH)) {
                 return ["Id de plano invalido"]
             }
             if (exerciseIds.has(ex.exerciseId)) {
                 return [`Exercício repetido no dia "${day.id}": "${ex.exerciseId}"`]
             }
             exerciseIds.add(ex.exerciseId);
-            if (isNonEmptyString(ex.name, MAX_NAME_LENGTH)) {
+            if (!isNonEmptyString(ex.name, MAX_NAME_LENGTH)) {
                 return ["nome invalido"]
             }
-            if (isNonEmptyString(ex.notes, MAX_NOTE_LENGTH)) {
+            if (ex.notes !== undefined && !isNonEmptyString(ex.notes, MAX_NOTE_LENGTH)) {
                 return ["Notas invalidas"]
             }
             if ( ex.unit !== undefined && ex.unit !== 'reps' && ex.unit !== "seconds") {
@@ -77,7 +76,7 @@ export function validatePlan(plan: unknown): string[] {
             if (!Number.isInteger(ex.repMax) || !Number.isInteger(ex.repMin) || !Number.isInteger(ex.targetRir) || !Number.isInteger(ex.sets)) {
                 return ["Algum numero informado esta invalido"]
             } 
-            if (ex.repMax > LIMIT_REPMAX|| ex.repMin <= LIMIT_REPMIN || ex.repMax < ex.repMin) {
+            if (ex.repMax > LIMIT_REPMAX|| ex.repMin < LIMIT_REPMIN || ex.repMax < ex.repMin) {
                 return ["Burro pra karai KKKK, numero de reps invalido"]
             }
             if (ex.targetRir < TARGET_RIRMIN || ex.targetRir > TARGET_RIRMAX) {
@@ -146,13 +145,13 @@ export function validateWorkout(workout: unknown): string[] {
         if (!isNonEmptyString(workout.note, MAX_NOTE_LENGTH )) return ["Erro ao escrever nota"]
     }
     const exercises = workout.exercises;
-    if (exercises !== undefined) {
         if (!Array.isArray(exercises)) return ["Exercicios deve vir como array"]
         if (exercises.length < 1) return ["deve haver ao menos 1 exercicio"]
     if (!isNonEmptyString(workout.planDayId, MAX_ID_LENGTH)) return ["Plan id invalido"]    
     const seen = new Set<string>()
     for (let i = 0; i < exercises.length; i++){
         const ex: unknown = exercises[i]
+        const p = `exercises[${i}]`;
         if (!isRecord(ex)) return ["Exercicio deve ser um objeto"]
         if (!isNonEmptyString(ex.exerciseId, MAX_ID_LENGTH)) return ["Erro no nome do exercicio"]
         if (seen.has(ex.exerciseId)) return [`${ex.exerciseId} esta repetitido`]
@@ -168,13 +167,12 @@ export function validateWorkout(workout: unknown): string[] {
         if (sets.length < 1 || sets.length > TARGET_SETSMAX) return ["tamanho de set invalido"]
     
         for (let j = 0; j < sets.length; j ++) {
-            const err = validateSet(sets[j], `${sets[j]}`, unit)
+             const err = validateSet(sets[j], `${p}.sets[${j}]`, unit)
             if (err) return [err]
         }
     }
-    }
     return []
-    }
+}
 
 
 

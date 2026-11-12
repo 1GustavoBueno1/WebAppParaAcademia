@@ -13,6 +13,11 @@ const TARGET_SETSMAX = 20
 export const MIN_LOAD_KG = 0;
 export const MAX_LOAD_KG = 1000;
 
+export const MAX_KG = 400
+export const MIN_KG = 20
+
+export const MAX_CIN = 250
+export const MIN_CIN = 30
 
 export const MAX_NOTE_LENGTH = 500;
 export const MAX_ID_LENGTH = 64;
@@ -174,15 +179,19 @@ export function validateWorkout(workout: unknown): string[] {
     }
     return []
 }
-export function validateMetric(metric: unknown) {
+export function validateMetric(metric: unknown): string [] {
     const typeMetric = metric as Metric
-   if (metric !== 'object' || metric === null) return ["erro na metric"]
+   if (typeof metric !== 'object' || metric === null) return ["erro na metric"]
    if (!isValidDate(typeMetric.date)) return ["Formato de data invalido"]
    if (typeMetric.waistCm !== undefined) {
-        if (typeof typeMetric.waistCm !== 'number') return ["waistCm precisa ser um numero"]
-        if (typeof typeMetric.weightKg !== 'number') return ["WeightKg precisa ser um numero"]
-               
-   }
+        if (typeof typeMetric.waistCm !== 'number' || !Number.isFinite(typeMetric.waistCm)) return ["waistCm precisa ser um numero"]
+        if (typeMetric.waistCm > MAX_CIN || typeMetric.waistCm < MIN_CIN) return ["Numero de cintura invalido"]
+    }
 
-
+   if (typeMetric.weightKg !== undefined) {
+        if (typeof typeMetric.weightKg !== 'number' || !Number.isFinite(typeMetric.weightKg)) return ["WeightKg precisa ser um numero"]
+        if (typeMetric.weightKg > MAX_KG || typeMetric.weightKg < MIN_KG) return ["Numero de peso invalido"]
+}
+    if (typeMetric.waistCm === undefined && typeMetric.weightKg === undefined)  return ["deve conter weightKG ou waistCm"]   
+    return []
 }

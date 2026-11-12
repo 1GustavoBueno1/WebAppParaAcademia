@@ -39,18 +39,27 @@ export function validatePlan(plan: unknown): string[] {
         return ["plano invalido"]
     }
     const typedPlan = plan as Plan;
-    if (!Array.isArray(typedPlan.days) || isNonEmptyString(typedPlan.days, MAX_NAME_LENGTH)) {
+    if (!Array.isArray(typedPlan.days)) {
         return ["Erro ao importar plano"]
+    }
+    if (typedPlan.days.length < 1 ) {
+        return ["plano do dia invalido"]
+    }
+    if (typedPlan.templateId !== undefined) {
+        if (!isNonEmptyString(typedPlan.templateId, MAX_NAME_LENGTH)) {
+            return ["Erro em templated"]
+        }
     }
     if (!isNonEmptyString(typedPlan.name, MAX_NAME_LENGTH)) return ["nome invalido"]
     const dayIds = new Set<string>()
     for (const day of typedPlan.days) {
         if (typeof day !== 'object' || day === null) {
         return ["plano invalido"]
-    }
+        }
         if (!isNonEmptyString(day.id, MAX_ID_LENGTH)||!Array.isArray(day.exercises)) {
             return ["plano invalido"]
         }
+        if (day.exercises.length < 1) return ["Exercicios deve ser maior que 1"]
         if (dayIds.has(day.id)) {
             return [`Dia repetido: "${day.id}"`]
         }
@@ -79,10 +88,11 @@ export function validatePlan(plan: unknown): string[] {
             if ( ex.unit !== undefined && ex.unit !== 'reps' && ex.unit !== "seconds") {
                 return ["Unidade de medida errado"]
             }
+            const maxReps = ex.unit === 'seconds' ? MAX_SECONDS : LIMIT_REPMAX
             if (!Number.isInteger(ex.repMax) || !Number.isInteger(ex.repMin) || !Number.isInteger(ex.targetRir) || !Number.isInteger(ex.sets)) {
                 return ["Algum numero informado esta invalido"]
             } 
-            if (ex.repMax > LIMIT_REPMAX|| ex.repMin < LIMIT_REPMIN || ex.repMax < ex.repMin) {
+            if (ex.repMax > maxReps|| ex.repMin < LIMIT_REPMIN || ex.repMax < ex.repMin) {
                 return ["Burro pra karai KKKK, numero de reps invalido"]
             }
             if (ex.targetRir < TARGET_RIRMIN || ex.targetRir > TARGET_RIRMAX) {

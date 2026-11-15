@@ -4,7 +4,7 @@ import { FirebaseError } from 'firebase/app'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,     
-  signOut,                        
+  signOut as fbSignOut,                        
   onAuthStateChanged,             
 } from 'firebase/auth'
 
@@ -24,10 +24,20 @@ export async function signUp(email: string, password: string, displayName: strin
 
 }
 
-export async function signIn(email: string, password: string): Promise<{ User: string | null } | FirebaseError[]> {
+export async function signIn(email: string, password: string): Promise<{ uid: string } | FirebaseError[]> {
     try {
         const credenciais = await signInWithEmailAndPassword(auth, email.trim(), password)
-        return {User: credenciais.user.email}
+        return {uid: credenciais.user.uid}
+    } catch (err) {
+        if (err instanceof FirebaseError) return [err]
+        throw err
+    }
+}
+
+export async function signOut(): Promise<FirebaseError[]> {
+    try {
+        await fbSignOut(auth)
+        return []
     } catch (err) {
         if (err instanceof FirebaseError) return [err]
         throw err

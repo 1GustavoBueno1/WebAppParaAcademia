@@ -3,22 +3,24 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBvfrZZ8LkqwTqytkzlEGE0RrndJtuu7LU",
-  authDomain: "academiawebapp-6b551.firebaseapp.com",
-  projectId: "academiawebapp-6b551",
-  storageBucket: "academiawebapp-6b551.firebasestorage.app",
-  messagingSenderId: "804255004641",
-  appId: "1:804255004641:web:71f4a3a5d7fcae19b6c4a0",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
   measurementId: "G-NB2LNLGYRD"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
-export const getFIre = getFirestore(app)
+export const getFire = getFirestore(app)

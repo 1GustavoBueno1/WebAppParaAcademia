@@ -205,3 +205,4 @@ export function validateMetric(metric: unknown): string [] {
     if (typeMetric.waistCm === undefined && typeMetric.weightKg === undefined)  return ["deve conter weightKG ou waistCm"]   
     return []
 }
+

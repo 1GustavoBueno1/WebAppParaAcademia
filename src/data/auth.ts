@@ -1,6 +1,6 @@
 import { auth, db } from "../firebase-config";
 import {doc, setDoc, serverTimestamp} from 'firebase/firestore'
-
+import { FirebaseError } from 'firebase/app'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,     
@@ -16,10 +16,20 @@ export async function signUp(email: string, password: string, displayName: strin
     if (displayName.trim().length >= MAX_NAME_CARCTERES || displayName.trim().length <= MIN_NAME_CARCTERES) {
         throw new Error("Nome deve contter no maximo 50 carcteres e no minimo 8.");
     }
-    const credenciais = await createUserWithEmailAndPassword(auth, email.trim(), password.trim())
+    const credenciais = await createUserWithEmailAndPassword(auth, email.trim(), password)
     await setDoc(doc(db, 'users', credenciais.user.uid), {
     displayName,
     createdAt: serverTimestamp(),
     })
 
+}
+
+export async function signIn(email: string, password: string): Promise<{ User: string | null } | FirebaseError[]> {
+    try {
+        const credenciais = await signInWithEmailAndPassword(auth, email.trim(), password)
+        return {User: credenciais.user.email}
+    } catch (err) {
+        if (err instanceof FirebaseError) return [err]
+        throw err
+    }
 }

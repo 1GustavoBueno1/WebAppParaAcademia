@@ -5,7 +5,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,     
   signOut as fbSignOut,                        
-  onAuthStateChanged,             
+  onAuthStateChanged,
+  type Unsubscribe,             
 } from 'firebase/auth'
 
 const MAX_NAME_CARCTERES = 50
@@ -42,4 +43,7 @@ export async function signOut(): Promise<FirebaseError[]> {
         if (err instanceof FirebaseError) return [err]
         throw err
     }
+}
+export function onAuthChange(callback: (user: User | null) => void): Unsubscribe {
+  return onAuthStateChanged(auth, callback)
 }

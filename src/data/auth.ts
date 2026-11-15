@@ -6,20 +6,22 @@ import {
   signInWithEmailAndPassword,     
   signOut as fbSignOut,                        
   onAuthStateChanged,
-  type Unsubscribe,             
+  type Unsubscribe,
+  type User,             
 } from 'firebase/auth'
+import firebase from "firebase/compat/app";
 
 const MAX_NAME_CARCTERES = 50
-const MIN_NAME_CARCTERES = 8
+const MIN_NAME_CARCTERES = 2
 
 export async function signUp(email: string, password: string, displayName: string) {
-
-    if (displayName.trim().length >= MAX_NAME_CARCTERES || displayName.trim().length <= MIN_NAME_CARCTERES) {
-        throw new Error("Nome deve contter no maximo 50 carcteres e no minimo 8.");
+    const name = displayName.trim()
+    if (name.length > MAX_NAME_CARCTERES || name.length < MIN_NAME_CARCTERES) {
+       throw FirebaseError
     }
     const credenciais = await createUserWithEmailAndPassword(auth, email.trim(), password)
     await setDoc(doc(db, 'users', credenciais.user.uid), {
-    displayName,
+    displayName: name,
     createdAt: serverTimestamp(),
     })
 

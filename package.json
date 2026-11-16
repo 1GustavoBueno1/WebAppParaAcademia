@@ -3,7 +3,9 @@
     "firebase": "^13.2.0"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^6.0.0",
     "@types/node": "^26.6.6",
+    "firebase-tools": "^15.36.0",
     "typescript": "^7.0.2",
     "vite": "^8.3.6"
   }

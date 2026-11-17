@@ -159,16 +159,20 @@ function validateSet (set: unknown, path: string, unit: 'reps' | 'seconds'): str
     }
     return null
 }
-export function validateWorkout(workout: unknown): string[] {
+export function validateWorkout(workout: unknown, today: string = todayLocal()): string[] {
     if (!isRecord(workout)) {
         return ["Workout deve ser um objeto"]
     }
     if (!isValidDate(workout.date)) {
         return ["Erro no modelo da data"]
     }
+    if (workout.date > today) {
+        return ["A data nao pode estar no futuro"]
+    }
     if (workout.note !== undefined) {
         if (!isNonEmptyString(workout.note, MAX_NOTE_LENGTH )) return ["Erro ao escrever nota"]
     }
+
     const exercises = workout.exercises;
         if (!Array.isArray(exercises)) return ["Exercicios deve vir como array"]
         if (exercises.length < 1) return ["deve haver ao menos 1 exercicio"]

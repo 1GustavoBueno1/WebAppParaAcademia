@@ -125,6 +125,15 @@ export function isValidDate(value: unknown): value is string {
     )
 }
 
+export function todayLocal(now: Date = new Date()): string {
+    const y = now.getFullYear
+    const m = String(now.getMonth() + 1).padStart(2, '0')
+    const d = String(now.getDate()).padStart(2, '0')
+    return `${y}-${m}-${d}`
+}
+
+
+
 function validateSet (set: unknown, path: string, unit: 'reps' | 'seconds'): string | null {
     if (!isRecord(set)) return `${path} deve ser um objeto`
 

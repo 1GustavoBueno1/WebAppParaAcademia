@@ -2,7 +2,7 @@ import { collection, doc, runTransaction } from 'firebase/firestore'
 import { db } from '../firebase-config.ts'
 import { validateWorkout, isValidDate } from '../domain/validation.ts'
 import { suggestNext } from '../domain/progresion.ts'
-import type { PlanExercise, SetLog, Workout } from '../domain/types.ts'
+import type { PlanExercise, Workout } from '../domain/types.ts'
 import { buildWorkoutDoc, cleanSets, readLastDate } from '../domain/workoutDoc.ts'
 export type SaveResult = { ok: true; id: string } | { ok: false; message: string }
 

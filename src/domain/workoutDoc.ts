@@ -19,8 +19,8 @@ export function cleanSets(sets: SetLog[]): SetLog[] {
 export function buildWorkoutDoc(workout: Workout) {
     const base = {
         date: workout.date,
-        playdayId: workout.planDayId,
-        exercices: workout.exercises.map(ex => ({
+        planDayId: workout.planDayId,
+        exercises: workout.exercises.map(ex => ({
             exerciseId: ex.exerciseId,
             sets: cleanSets(ex.sets)
         }))}

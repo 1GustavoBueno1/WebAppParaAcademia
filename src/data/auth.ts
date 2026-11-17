@@ -9,7 +9,6 @@ import {
   type Unsubscribe,
   type User,             
 } from 'firebase/auth'
-import firebase from "firebase/compat/app";
 
 const MAX_NAME_CARCTERES = 50
 const MIN_NAME_CARCTERES = 2

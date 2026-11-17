@@ -205,4 +205,11 @@ export function validateMetric(metric: unknown): string [] {
     if (typeMetric.waistCm === undefined && typeMetric.weightKg === undefined)  return ["deve conter weightKG ou waistCm"]   
     return []
 }
-
+export function readLastDate(data: unknown): string | null {
+    if (typeof data !== 'object' || data === null) return null 
+    if (!('lastDate' in data)) return null                       
+    const lastDate = data.lastDate
+    if (typeof lastDate !== 'string') return null               
+    if (!isValidDate(lastDate)) return null                     
+    return lastDate                                               
+}

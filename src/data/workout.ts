@@ -5,6 +5,7 @@ import { suggestNext } from '../domain/progresion.ts'
 import type { PlanExercise, Workout } from '../domain/types.ts'
 import { buildWorkoutDoc, cleanSets, readLastDate } from '../domain/workoutDoc.ts'
 export type SaveResult = { ok: true; id: string } | { ok: false; message: string }
+import type firestore
 
 export async function saveWorkout(uid: string, workout: Workout, planExercises: PlanExercise[]): Promise<SaveResult> {
     const [error] = validateWorkout(workout)

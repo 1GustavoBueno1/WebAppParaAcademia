@@ -1,6 +1,6 @@
-import type { PlanExercise, Suggestion, SetLog } from "./types";
+import type { PlanExercise, Suggestion, SetLog } from "./types.ts";
 
-import { MAX_LOAD_KG} from "./validation";
+import { MAX_LOAD_KG} from "./validation.ts";
 
 export function suggestNext(exercise: PlanExercise, lastSets: SetLog[]): Suggestion {
     const {repMin, repMax, incrementKg, sets: plannedSets} = exercise

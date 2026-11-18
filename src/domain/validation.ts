@@ -1,4 +1,4 @@
-import type { Metric, Plan } from "./types.ts"
+import type { Metric, Plan, SetLog } from "./types.ts"
 
 const LIMIT_REPMAX = 100
 const LIMIT_REPMIN = 1
@@ -30,8 +30,23 @@ const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
 function isNonEmptyString(v: unknown, max: number): v is string {
     return v !== undefined && typeof v === 'string' && v.trim().length > 0 && v.length <= max 
 }
-function isRecord(v: unknown): v is Record<string, unknown> {
+export function isRecord(v: unknown): v is Record<string, unknown> {
   return typeof v === 'object' && v !== null && !Array.isArray(v);
+}
+
+
+
+export function isSetLog(v: unknown): v is SetLog {
+    if (!isRecord(v)) return false
+    if (typeof v.reps !== 'number' || !Number.isInteger(v.reps)) return false
+    if (typeof v.loadKg !== 'number' || !Number.isFinite(v.loadKg)) return false
+    if (v.rir !== undefined) {
+        if (typeof v.rir !== 'number' || !Number.isInteger(v.rir)) return false
+        if (v.rir < 0) return false
+    }
+    if (v.reps < LIMIT_REPMIN || v.reps > LIMIT_REPMAX) return false
+    if (v.loadKg < MIN_LOAD_KG || v.loadKg > MAX_LOAD_KG) return false
+    return true
 }
 
 export function validatePlan(plan: unknown): string[] {
@@ -224,5 +239,4 @@ export function readLastDate(data: unknown): string | null {
     const lastDate = data.lastDate
     if (typeof lastDate !== 'string') return null               
     if (!isValidDate(lastDate)) return null                     
-    return lastDate                                               
-}
+    return lastDate}

@@ -1,5 +1,7 @@
 import { isValidDate } from './validation.ts'
-import type { SetLog, Workout } from './types.ts'
+import type { ExerciseState, SetLog, Workout } from './types.ts'
+import { isRecord } from './validation.ts'
+
 export function readLastDate(data: unknown): string | null {
     if (typeof data !== 'object' || data === null) return null
     if (!('lastDate' in data)) return null
@@ -25,4 +27,10 @@ export function buildWorkoutDoc(workout: Workout) {
             sets: cleanSets(ex.sets)
         }))}
     return workout.note === undefined ? base : {...base, note: workout.note}
+}
+
+export function parseExerciseState(data: unknown): ExerciseState | null {
+    if (!isRecord(data)) return null
+    if (!readLastDate(data.lastDate)) return null
+    
 }

@@ -8,5 +8,9 @@
     "firebase-tools": "^15.36.0",
     "typescript": "^7.0.2",
     "vite": "^8.3.6"
-  }
+  },
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.ts\"",
+    "test:rules": "...o que você já tem..."
+}
 }

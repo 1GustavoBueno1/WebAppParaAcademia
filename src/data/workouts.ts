@@ -1,13 +1,13 @@
-import { collection, doc, runTransaction } from 'firebase/firestore'
+import { collection, doc, runTransaction, type Firestore } from 'firebase/firestore'
 import { db } from '../firebase-config.ts'
 import { validateWorkout, isValidDate } from '../domain/validation.ts'
-import { suggestNext } from '../domain/progresion.ts'
+import { suggestNext } from '../domain/progression.ts'
 import type { PlanExercise, Workout } from '../domain/types.ts'
 import { buildWorkoutDoc, cleanSets, readLastDate } from '../domain/workoutDoc.ts'
 export type SaveResult = { ok: true; id: string } | { ok: false; message: string }
-import { firestoreErrorMessage } from './irestoreErrors.ts'
+import { firestoreErrorMessage } from './firestoreErrors.ts'
 
-export async function saveWorkout(uid: string, workout: Workout, planExercises: PlanExercise[]): Promise<SaveResult> {
+export async function saveWorkout(db: Firestore  ,uid: string, workout: Workout, planExercises: PlanExercise[]): Promise<SaveResult> {
     const [error] = validateWorkout(workout)
     if (error !== undefined) return { ok: false, message: error }
 

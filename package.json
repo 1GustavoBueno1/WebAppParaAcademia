@@ -11,6 +11,6 @@
   },
   "scripts": {
     "test": "node --test \"tests/**/*.test.ts\"",
-    "test:rules": "...o que você já tem..."
-}
+    "test:rules": "firebase emulators:exec --only firestore --project demo-webappacademia \"node --test --test-concurrency=1 tests-rules/**/*.test.ts\""
+  }
 }

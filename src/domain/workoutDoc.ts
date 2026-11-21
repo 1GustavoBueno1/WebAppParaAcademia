@@ -33,12 +33,11 @@ export function parseExerciseState(data: unknown): ExerciseState | null {
     if (!isRecord(data)) return null
     const lastDate = data.lastDate
     if (!isValidDate(lastDate)) return null
-    if (!readLastDate(lastDate)) return null
     const rawSets = data.lastSets
     if (!Array.isArray(rawSets) || rawSets.length === 0 || rawSets.length > 20) return null
     const lastSets: SetLog[] = []
     for (const item of rawSets) {
-        if (!isSetLog) return null
+        if (!isSetLog(item)) return null
         lastSets.push(item)
     }
     const suggestedLoadKg = data.suggestedLoadKg

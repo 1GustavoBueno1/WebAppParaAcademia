@@ -2,7 +2,6 @@ import { collection, getDocs, type Firestore } from 'firebase/firestore'
 import type { ExerciseState } from '../domain/types.ts'
 import { parseExerciseState } from '../domain/workoutDoc.ts'
 import { firestoreErrorMessage } from './firestoreErrors.ts'
-import { stat } from 'node:fs'
 
 export type LoadResult<T> = { ok: true; data: T } | { ok: false; message: string }
 

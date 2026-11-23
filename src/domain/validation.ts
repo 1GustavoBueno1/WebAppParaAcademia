@@ -27,13 +27,16 @@ export const MAX_SECONDS = 600;
 
 const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
 
-function isNonEmptyString(v: unknown, max: number): v is string {
+export function isNonEmptyString(v: unknown, max: number): v is string {
     return v !== undefined && typeof v === 'string' && v.trim().length > 0 && v.length <= max 
 }
 export function isRecord(v: unknown): v is Record<string, unknown> {
   return typeof v === 'object' && v !== null && !Array.isArray(v);
 }
 
+export function isIntBetween(v: unknown, min: number, max: number): v is number {
+    return typeof v === 'number' && Number.isInteger(v) && v >= min && v <= max
+}
 
 
 export function isSetLog(v: unknown): v is SetLog {

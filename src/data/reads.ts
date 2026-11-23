@@ -1,7 +1,13 @@
 import { collection, getDocs, type Firestore } from 'firebase/firestore'
-import type { ExerciseState } from '../domain/types.ts'
-import { parseExerciseState } from '../domain/workoutDoc.ts'
+import type { ExerciseState, Plan } from '../domain/types.ts'
+import { parseExerciseState, parsePlan } from '../domain/workoutDoc.ts'
 import { firestoreErrorMessage } from './firestoreErrors.ts'
+import { parse } from 'node:path'
+import { StatementSync } from 'node:sqlite'
+
+
+
+
 
 export type LoadResult<T> = { ok: true; data: T } | { ok: false; message: string }
 
@@ -19,6 +25,22 @@ export async function loadExerciseStates(db: Firestore, uid: string): Promise<Lo
         states.set(d.id, parsed)
     }   return {ok: true, data: states}
     } catch(err) {
+        return {ok: false, message: firestoreErrorMessage(err, 'Não foi possível carregar seus dados.')}
+    }
+}
+
+export async function loadPlans(db: Firestore, uid: string): Promise<LoadResult<Map<string, Plan>>> {
+    try {
+        const refs = collection(db, 'users', uid, 'plans')
+        const snap = await getDocs(refs)
+        const plans = new Map<string, Plan>()
+        for (const d of snap.docs) {
+            const parsed = parsePlan(d.data())
+            if (parsed === null) continue
+            plans.set(d.id, parsed)
+    } 
+    return {ok: true, data: plans}
+    } catch (err) {
         return {ok: false, message: firestoreErrorMessage(err, 'Não foi possível carregar seus dados.')}
     }
 }

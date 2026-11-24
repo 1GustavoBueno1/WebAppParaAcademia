@@ -2,8 +2,7 @@ import { collection, getDocs, type Firestore } from 'firebase/firestore'
 import type { ExerciseState, Plan } from '../domain/types.ts'
 import { parseExerciseState, parsePlan } from '../domain/workoutDoc.ts'
 import { firestoreErrorMessage } from './firestoreErrors.ts'
-import { parse } from 'node:path'
-import { StatementSync } from 'node:sqlite'
+
 
 
 
@@ -42,5 +41,21 @@ export async function loadPlans(db: Firestore, uid: string): Promise<LoadResult<
     return {ok: true, data: plans}
     } catch (err) {
         return {ok: false, message: firestoreErrorMessage(err, 'Não foi possível carregar seus dados.')}
+    }
+}
+
+export async function loadTemplates(db: Firestore): Promise<LoadResult<Map<string, Plan>>> {
+    try {
+        const ref = collection(db, 'templates')
+        const snap = await getDocs(ref)
+        const templates = new Map<string, Plan>()
+        for (const d of snap.docs) {
+            const parsed = parsePlan(d.data())
+            if (parsed === null) continue
+            templates.set(d.id, parsed)
+    } 
+    return {ok: true, data: templates}
+    } catch (err) {
+        return {ok: false, message: firestoreErrorMessage(err, 'Não foi possível carregar seus modelos de treino.')}
     }
 }

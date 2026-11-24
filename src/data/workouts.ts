@@ -4,7 +4,7 @@ import { suggestNext } from '../domain/progression.ts'
 import type { PlanExercise, Workout } from '../domain/types.ts'
 import { buildWorkoutDoc, cleanSets, readLastDate } from '../domain/workoutDoc.ts'
 import { firestoreErrorMessage } from './firestoreErrors.ts'
-export type SaveResult = { ok: true; id: string } | { ok: false; message: string }
+import { type SaveResult } from '../domain/types.ts'
 
 export async function saveWorkout(db: Firestore  ,uid: string, workout: Workout, planExercises: PlanExercise[]): Promise<SaveResult> {
     const [error] = validateWorkout(workout)

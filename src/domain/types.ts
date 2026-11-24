@@ -75,3 +75,4 @@ export interface CustomExercise {
     name: string,
     unit: 'reps' | 'seconds'
 }
+export type SaveResult = { ok: true; id: string } | { ok: false; message: string }

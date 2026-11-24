@@ -138,7 +138,7 @@ export function parsePlan(data: unknown): Plan | null {
 
         days.push(day)
     }
-     const plan: Plan = { name, days }
+    const plan: Plan = { name, days }
     if (templateId !== undefined) plan.templateId = templateId
     return plan
 }

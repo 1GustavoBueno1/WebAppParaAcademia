@@ -1,0 +1,11 @@
+{
+  "abc-iniciante": {
+    "name": "ABC para iniciantes",
+    "days": [
+      { "id": "dia-a", "name": "Peito e tríceps", "exercises": [
+        { "exerciseId": "supino-reto", "name": "Supino reto", "sets": 3,
+          "repMin": 8, "repMax": 12, "targetRir": 2, "incrementKg": 2.5 }
+      ]}
+    ]
+  }
+}

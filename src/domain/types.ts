@@ -76,3 +76,5 @@ export interface CustomExercise {
     unit: 'reps' | 'seconds'
 }
 export type SaveResult = { ok: true; id: string } | { ok: false; message: string }
+
+export type TemplateDoc = Pick<Plan, 'name' | 'days'>

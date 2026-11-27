@@ -58,3 +58,11 @@ function lerTemplates(): Map<string, TemplateDoc> {
     }
     return templates
 }
+
+
+function resumo(templates: Map<string, TemplateDoc>): void {
+    for (const [id, t] of templates) {
+        const exercicios = t.days.reduce((n, d) => n + d.exercises.length, 0)
+        console.log(`  ${id}: "${t.name}" — ${t.days.length} dia(s), ${exercicios} exercício(s)`)
+    }
+}

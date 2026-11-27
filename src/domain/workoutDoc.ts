@@ -122,8 +122,7 @@ export function parsePlan(data: unknown): Plan | null {
     const name = data.name
     if(!isNonEmptyString(name, 100)) return null
     const templateId = data.templateId
-    if (!isNonEmptyString(templateId, 100)) return null
-    if (templateId !== undefined) data.templateId = templateId
+    if (templateId !== undefined && !isNonEmptyString(templateId, 100)) return null
     const setIdSeen = new Set<string>();
     const daysCru = data.days
     if (!Array.isArray(daysCru)) return null

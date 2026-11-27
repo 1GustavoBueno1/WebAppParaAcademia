@@ -4,7 +4,6 @@ import { getFirestore } from 'firebase-admin/firestore'
 import { isRecord } from '../src/domain/validation.ts'
 import { parsePlan } from '../src/domain/workoutDoc.ts'
 import { validatePlan } from '../src/domain/validation.ts'
-import type { Plan } from '../src/domain/types.ts'
 import type { TemplateDoc } from '../src/domain/types.ts'
 
 

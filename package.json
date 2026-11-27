@@ -1,4 +1,12 @@
 {
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p . && vite build",
+    "preview": "vite preview",
+    "test": "node --test \"tests/**/*.test.ts\"",
+    "test:rules": "firebase emulators:exec --only firestore --project demo-webappacademia \"node --test --test-concurrency=1 tests-rules/**/*.test.ts\""
+  },
   "dependencies": {
     "firebase": "^13.2.0"
   },
@@ -9,9 +17,5 @@
     "firebase-tools": "^15.36.0",
     "typescript": "^7.0.2",
     "vite": "^8.3.6"
-  },
-  "scripts": {
-    "test": "node --test \"tests/**/*.test.ts\"",
-    "test:rules": "firebase emulators:exec --only firestore --project demo-webappacademia \"node --test --test-concurrency=1 tests-rules/**/*.test.ts\""
   }
 }

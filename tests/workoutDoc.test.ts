@@ -1,6 +1,6 @@
 import { describe, test } from 'node:test'
 import assert from 'node:assert/strict'
-import { buildWorkoutDoc, cleanSets, readLastDate } from '../src/domain/workoutDoc.ts'
+import { buildWorkoutDoc, cleanSets, parsePlan, readLastDate } from '../src/domain/workoutDoc.ts'
 function hasUndefined(v: unknown): boolean {
     if (v === undefined) return true
     if (typeof v === 'object' && v !== null) return Object.values(v).some(hasUndefined)
@@ -75,5 +75,29 @@ describe('buildWorkoutDoc', () => {
             planDayId: 'day-a',
             exercises: [{ exerciseId: 'supino', sets: [{ reps: 10, loadKg: 40, rir: 2 }] }],
         })
+    })
+})
+describe('parsePlan', () => {
+    const template = () => ({
+        name: 'ABC para iniciantes',
+        days: [{ id: 'dia-a', name: 'Peito e tríceps', exercises: [
+            { exerciseId: 'supino-reto', name: 'Supino reto', sets: 3, repMin: 8, repMax: 12, targetRir: 2, incrementKg: 2.5 },
+        ] }],
+    })
+    test('template sem templateId é aceito e continua sem o campo', () => {
+        const plan = parsePlan(template())
+        assert.notEqual(plan, null)
+        assert.equal('templateId' in plan!, false)
+    })
+    test('templateId válido é mantido', () => {
+        assert.equal(parsePlan({ ...template(), templateId: 'abc-iniciante' })?.templateId, 'abc-iniciante')
+    })
+    test('templateId vazio → null', () => assert.equal(parsePlan({ ...template(), templateId: '' }), null))
+    test('templateId numérico → null', () => assert.equal(parsePlan({ ...template(), templateId: 42 }), null))
+    test('não altera o objeto recebido', () => {
+        const raw = { ...template(), templateId: 'abc-iniciante' }
+        const antes = JSON.stringify(raw)
+        parsePlan(raw)
+        assert.equal(JSON.stringify(raw), antes)
     })
 })

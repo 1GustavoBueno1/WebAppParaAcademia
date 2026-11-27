@@ -1,11 +1,493 @@
 {
+  "fase2-gustavo": {
+    "name": "Fase 2 — Superior/Inferior",
+    "days": [
+      {
+        "id": "superior-a",
+        "name": "Superior A — força e costas",
+        "exercises": [
+          {
+            "exerciseId": "barra-fixa",
+            "name": "Barra fixa ou puxada",
+            "sets": 3,
+            "repMin": 6,
+            "repMax": 8,
+            "targetRir": 2,
+            "incrementKg": 2.5,
+            "notes": "RIR 1–2."
+          },
+          {
+            "exerciseId": "supino-reto",
+            "name": "Supino reto",
+            "sets": 3,
+            "repMin": 6,
+            "repMax": 8,
+            "targetRir": 2,
+            "incrementKg": 2.5,
+            "notes": "RIR 1–2."
+          },
+          {
+            "exerciseId": "remada-curvada",
+            "name": "Remada curvada",
+            "sets": 3,
+            "repMin": 6,
+            "repMax": 8,
+            "targetRir": 2,
+            "incrementKg": 2.5,
+            "notes": "RIR 1–2."
+          },
+          {
+            "exerciseId": "desenvolvimento-halteres",
+            "name": "Desenvolvimento com halteres",
+            "sets": 3,
+            "repMin": 6,
+            "repMax": 8,
+            "targetRir": 2,
+            "incrementKg": 2,
+            "notes": "RIR 1–2."
+          },
+          {
+            "exerciseId": "elevacao-lateral",
+            "name": "Elevação lateral",
+            "sets": 3,
+            "repMin": 12,
+            "repMax": 15,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "rosca-direta",
+            "name": "Rosca direta",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 12,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "triceps-polia-acima-cabeca",
+            "name": "Tríceps na polia acima da cabeça",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 12,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "rosca-inversa-barra-w",
+            "name": "Rosca inversa com barra W",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 15,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "rosca-punho",
+            "name": "Rosca de punho",
+            "sets": 3,
+            "repMin": 12,
+            "repMax": 20,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Antebraço apoiado. Deixe o peso descer até os dedos abrirem. Falha na última série."
+          }
+        ]
+      },
+      {
+        "id": "inferior-a",
+        "name": "Inferior A — agachamento",
+        "exercises": [
+          {
+            "exerciseId": "agachamento-livre",
+            "name": "Agachamento livre",
+            "sets": 3,
+            "repMin": 6,
+            "repMax": 8,
+            "targetRir": 2,
+            "incrementKg": 5,
+            "notes": "RIR 1–2. Nunca na falha."
+          },
+          {
+            "exerciseId": "stiff",
+            "name": "Stiff",
+            "sets": 3,
+            "repMin": 6,
+            "repMax": 8,
+            "targetRir": 2,
+            "incrementKg": 5,
+            "notes": "RIR 1–2."
+          },
+          {
+            "exerciseId": "leg-press",
+            "name": "Leg press",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 12,
+            "targetRir": 1,
+            "incrementKg": 5,
+            "notes": "RIR 1."
+          },
+          {
+            "exerciseId": "flexora-sentada",
+            "name": "Flexora sentada",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 12,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "panturrilha-em-pe",
+            "name": "Panturrilha em pé",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 15,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "elevacao-pernas",
+            "name": "Elevação de pernas",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 15,
+            "targetRir": 0,
+            "incrementKg": 0,
+            "notes": "Falha na última série."
+          }
+        ]
+      },
+      {
+        "id": "superior-b",
+        "name": "Superior B — volume, ombro e peito",
+        "exercises": [
+          {
+            "exerciseId": "supino-inclinado-halteres",
+            "name": "Supino inclinado com halteres",
+            "sets": 3,
+            "repMin": 6,
+            "repMax": 8,
+            "targetRir": 2,
+            "incrementKg": 2,
+            "notes": "RIR 1–2."
+          },
+          {
+            "exerciseId": "elevacao-lateral",
+            "name": "Elevação lateral",
+            "sets": 3,
+            "repMin": 12,
+            "repMax": 15,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "puxada-aberta",
+            "name": "Puxada aberta",
+            "sets": 3,
+            "repMin": 8,
+            "repMax": 10,
+            "targetRir": 1,
+            "incrementKg": 2.5,
+            "notes": "RIR 1."
+          },
+          {
+            "exerciseId": "serrote",
+            "name": "Serrote",
+            "sets": 3,
+            "repMin": 8,
+            "repMax": 10,
+            "targetRir": 1,
+            "incrementKg": 2,
+            "notes": "RIR 1."
+          },
+          {
+            "exerciseId": "peck-deck",
+            "name": "Peck deck",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 15,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "crucifixo-inverso",
+            "name": "Crucifixo inverso",
+            "sets": 3,
+            "repMin": 12,
+            "repMax": 15,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Peck deck invertido ou halteres. Falha na última série."
+          },
+          {
+            "exerciseId": "rosca-martelo",
+            "name": "Rosca martelo",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 12,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "triceps-frances",
+            "name": "Tríceps francês",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 12,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "rosca-punho-invertida",
+            "name": "Rosca de punho invertida",
+            "sets": 3,
+            "repMin": 15,
+            "repMax": 20,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          }
+        ]
+      },
+      {
+        "id": "inferior-b",
+        "name": "Inferior B — terra",
+        "exercises": [
+          {
+            "exerciseId": "levantamento-terra",
+            "name": "Levantamento terra",
+            "sets": 3,
+            "repMin": 5,
+            "repMax": 6,
+            "targetRir": 2,
+            "incrementKg": 5,
+            "notes": "RIR 2. Nunca na falha. Strap só nas séries mais pesadas, se a pegada falhar."
+          },
+          {
+            "exerciseId": "bulgaro",
+            "name": "Búlgaro (cada perna)",
+            "sets": 3,
+            "repMin": 8,
+            "repMax": 10,
+            "targetRir": 1,
+            "incrementKg": 2,
+            "notes": "RIR 1. Repetições por perna."
+          },
+          {
+            "exerciseId": "cadeira-extensora",
+            "name": "Cadeira extensora",
+            "sets": 3,
+            "repMin": 12,
+            "repMax": 15,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "flexora-sentada",
+            "name": "Flexora sentada",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 12,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "panturrilha-sentada",
+            "name": "Panturrilha sentada",
+            "sets": 3,
+            "repMin": 12,
+            "repMax": 15,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "prancha",
+            "name": "Prancha ou roda abdominal",
+            "sets": 3,
+            "repMin": 30,
+            "repMax": 90,
+            "targetRir": 1,
+            "incrementKg": 0,
+            "notes": "Máximo, perto da falha. Na roda abdominal, conte as repetições como segundos.",
+            "unit": "seconds"
+          },
+          {
+            "exerciseId": "caminhada-fazendeiro",
+            "name": "Caminhada do fazendeiro",
+            "sets": 3,
+            "repMin": 30,
+            "repMax": 40,
+            "targetRir": 1,
+            "incrementKg": 2,
+            "notes": "Até a pegada quase falhar.",
+            "unit": "seconds"
+          }
+        ]
+      },
+      {
+        "id": "sabado-opcional",
+        "name": "Sábado opcional — ombro e braço",
+        "exercises": [
+          {
+            "exerciseId": "elevacao-lateral",
+            "name": "Elevação lateral",
+            "sets": 3,
+            "repMin": 15,
+            "repMax": 20,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "rosca-alternada",
+            "name": "Rosca alternada",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 12,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          },
+          {
+            "exerciseId": "triceps-testa",
+            "name": "Tríceps testa",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 12,
+            "targetRir": 0,
+            "incrementKg": 1,
+            "notes": "Falha na última série."
+          }
+        ]
+      }
+    ]
+  },
   "abc-iniciante": {
     "name": "ABC para iniciantes",
     "days": [
-      { "id": "dia-a", "name": "Peito e tríceps", "exercises": [
-        { "exerciseId": "supino-reto", "name": "Supino reto", "sets": 3,
-          "repMin": 8, "repMax": 12, "targetRir": 2, "incrementKg": 2.5 }
-      ]}
+      {
+        "id": "dia-a",
+        "name": "Peito e tríceps",
+        "exercises": [
+          {
+            "exerciseId": "supino-reto",
+            "name": "Supino reto",
+            "sets": 3,
+            "repMin": 8,
+            "repMax": 12,
+            "targetRir": 2,
+            "incrementKg": 2.5
+          },
+          {
+            "exerciseId": "supino-inclinado-halteres",
+            "name": "Supino inclinado com halteres",
+            "sets": 3,
+            "repMin": 8,
+            "repMax": 12,
+            "targetRir": 2,
+            "incrementKg": 2
+          },
+          {
+            "exerciseId": "triceps-corda",
+            "name": "Tríceps na corda",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 15,
+            "targetRir": 2,
+            "incrementKg": 2.5
+          }
+        ]
+      },
+      {
+        "id": "dia-b",
+        "name": "Costas e bíceps",
+        "exercises": [
+          {
+            "exerciseId": "puxada-frente",
+            "name": "Puxada na frente",
+            "sets": 3,
+            "repMin": 8,
+            "repMax": 12,
+            "targetRir": 2,
+            "incrementKg": 2.5
+          },
+          {
+            "exerciseId": "remada-curvada",
+            "name": "Remada curvada",
+            "sets": 3,
+            "repMin": 8,
+            "repMax": 12,
+            "targetRir": 2,
+            "incrementKg": 2.5
+          },
+          {
+            "exerciseId": "rosca-direta",
+            "name": "Rosca direta",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 15,
+            "targetRir": 2,
+            "incrementKg": 1
+          }
+        ]
+      },
+      {
+        "id": "dia-c",
+        "name": "Pernas e ombros",
+        "exercises": [
+          {
+            "exerciseId": "agachamento",
+            "name": "Agachamento livre",
+            "sets": 3,
+            "repMin": 6,
+            "repMax": 10,
+            "targetRir": 2,
+            "incrementKg": 5
+          },
+          {
+            "exerciseId": "leg-press",
+            "name": "Leg press",
+            "sets": 3,
+            "repMin": 10,
+            "repMax": 15,
+            "targetRir": 2,
+            "incrementKg": 10
+          },
+          {
+            "exerciseId": "desenvolvimento-halteres",
+            "name": "Desenvolvimento com halteres",
+            "sets": 3,
+            "repMin": 8,
+            "repMax": 12,
+            "targetRir": 2,
+            "incrementKg": 2
+          },
+          {
+            "exerciseId": "prancha",
+            "name": "Prancha",
+            "sets": 3,
+            "repMin": 30,
+            "repMax": 60,
+            "targetRir": 2,
+            "incrementKg": 0,
+            "unit": "seconds"
+          }
+        ]
+      }
     ]
   }
 }

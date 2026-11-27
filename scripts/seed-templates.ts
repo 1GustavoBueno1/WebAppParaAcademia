@@ -66,3 +66,43 @@ function resumo(templates: Map<string, TemplateDoc>): void {
         console.log(`  ${id}: "${t.name}" — ${t.days.length} dia(s), ${exercicios} exercício(s)`)
     }
 }
+
+async function main(): Promise<void> {
+    const dryRun = process.argv.includes('--dry-run')
+    const prod = process.argv.includes('--prod')
+    const emulador = process.env.FIRESTORE_EMULATOR_HOST
+
+    const templates = lerTemplates()
+    console.log(`${templates.size} template(s) válido(s):`)
+    resumo(templates)
+
+    if (dryRun) {
+        console.log('\n--dry-run: nada foi gravado.')
+        return
+    }
+    if (prod && emulador) {
+        throw new Error(`--prod com FIRESTORE_EMULATOR_HOST=${emulador} definido. Feche o terminal ou rode: Remove-Item Env:FIRESTORE_EMULATOR_HOST`)
+    }
+    if (prod && !process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+        throw new Error('--prod exige GOOGLE_APPLICATION_CREDENTIALS apontando para a chave da conta de serviço')
+    }
+    if (emulador) {
+        console.log(`\nDestino: EMULADOR (${emulador}), projeto ${EMULATOR_PROJECT_ID}`)
+        initializeApp({ projectId: EMULATOR_PROJECT_ID })
+    } else {
+        console.log('\nDestino: PRODUÇÃO')
+        initializeApp()
+    }
+    const db = getFirestore()
+    const batch = db.batch()
+    for (const [id, t] of templates) {
+        batch.set(db.collection('templates').doc(id), t)
+    }
+    await batch.commit()
+    console.log(`${templates.size} template(s) gravado(s) em templates/.`)
+}
+
+main().catch((err: unknown) => {
+    console.error(`\nERRO: ${err instanceof Error ? err.message : String(err)}`)
+    process.exit(1)
+})
